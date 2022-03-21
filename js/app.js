@@ -1,5 +1,6 @@
 let timeLeft = 60
 let round = 0
+let countdown
 
 const randomizeQuestionOrder = () => {
   return questions.sort(() => Math.random() - .5)
@@ -13,14 +14,13 @@ document.querySelector('#start-game').addEventListener('click', () => {
   displayQuestion(randomQuestions[round])
 })
 
-
-
 const startTimer = () => {
-  let countdown = setInterval(() => {
+  countdown = setInterval(() => {
     document.querySelector('#timer').textContent = timeLeft
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       // game ends
-      clearInterval(countdown)
+      gameOver()
+      document.querySelector('#timer').textContent = 0
     } else {
       timeLeft--
     }
@@ -29,7 +29,7 @@ const startTimer = () => {
 
 const displayQuestion = question => {
   if (!question) {
-    console.log('all over')
+    gameOver()
     return
   }
   const questionContainer = document.querySelector('.question')
@@ -48,13 +48,8 @@ const displayQuestion = question => {
     choiceList.appendChild(li)
     li.addEventListener('click', e => {
       console.log('this is  the click event')
-      if (e.target.matches('li') && e.target.dataset.correct === 'true') {
-        console.log('thats the correct answer!')
-        // Don't decrement score/timer
-      } else {
-        // Decrement score/timer
-        timeLeft -= 10
-      }
+      if (e.target.matches('li') && e.target.dataset.correct === 'true') console.log('thats the correct answer!') // Don't decrement score/timer 
+      else timeLeft -= 20 // Decrement score/timer
       // advance to next question
       round++
       displayQuestion(randomQuestions[round])
@@ -64,3 +59,38 @@ const displayQuestion = question => {
   document.querySelector('.game-space').appendChild(questionContainer)
 }
 
+const gameOver = () => {
+  clearInterval(countdown)
+  const initialsForm = document.createElement('form')
+  const initialsInput = document.createElement('input')
+  initialsInput.setAttribute('placeholder', 'What are your initials?')
+  initialsForm.appendChild(initialsInput)
+  document.querySelector('.game-space').innerHTML = ''
+  document.querySelector('.game-space').appendChild(initialsForm)
+
+  document.addEventListener('submit' , e => {
+    e.preventDefault()
+    let scores = JSON.parse(localStorage.getItem('scores')) || []
+    scores.push({
+      initials: initialsInput.value,
+      score: timeLeft + 1
+    })
+    localStorage.setItem('scores', JSON.stringify(scores))
+    displayHighScores()
+  })
+
+  if (timeLeft >= 0) {
+    // user wins: their score is the remaining time
+    // display top scores
+  } else {
+    // user lost :sadface
+  }
+}
+
+const displayHighScores = () => {
+  let scores = JSON.parse(localStorage.getItem('scores')).sort((a, b) => {
+    return b.score - a.score
+  })
+
+  console.log(scores)
+}
