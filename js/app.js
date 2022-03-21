@@ -18,7 +18,6 @@ const startTimer = () => {
   countdown = setInterval(() => {
     document.querySelector('#timer').textContent = timeLeft
     if (timeLeft <= 0) {
-      // game ends
       gameOver()
       document.querySelector('#timer').textContent = 0
     } else {
@@ -74,7 +73,7 @@ const gameOver = () => {
     let scores = getHighScores()
     scores.push({
       initials: initialsInput.value,
-      score: timeLeft + 1
+      score: timeLeft > 0 ? timeLeft + 1 : 0
     })
     localStorage.setItem('scores', JSON.stringify(scores))
 
@@ -88,16 +87,9 @@ const gameOver = () => {
       scoreLi.textContent = `${score.initials} ${score.score}`
       highScoresUl.appendChild(scoreLi)
     })
+    document.querySelector('.game-space').innerHTML = ''
     document.querySelector('.game-space').appendChild(highScoresUl)
   })
-
-  if (timeLeft >= 0) {
-    // user wins: their score is the remaining time
-    // display top scores
-    
-  } else {
-    // user lost :sadface
-  }
 }
 
 const getHighScores = () => {
