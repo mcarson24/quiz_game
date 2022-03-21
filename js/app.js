@@ -49,11 +49,10 @@ const displayQuestion = question => {
     li.addEventListener('click', e => {
       console.log('this is  the click event')
       if (e.target.matches('li') && e.target.dataset.correct === 'true') {
-        console.log('thats the correct answer!') // Don't decrement score/timer 
+        // Advance to next question
         round++
       }
       else timeLeft -= 20 // Decrement score/timer
-      // advance to next question
       displayQuestion(randomQuestions[round])
     })
   })
@@ -72,27 +71,35 @@ const gameOver = () => {
 
   document.addEventListener('submit' , e => {
     e.preventDefault()
-    let scores = JSON.parse(localStorage.getItem('scores')) || []
+    let scores = getHighScores()
     scores.push({
       initials: initialsInput.value,
       score: timeLeft + 1
     })
     localStorage.setItem('scores', JSON.stringify(scores))
-    displayHighScores()
+
+    const highScoresUl = document.createElement('ul')
+    scores = scores.sort((a, b) => {
+      return b.score - a.score
+    }).splice(0, 10)
+    
+    scores.forEach(score => {
+      const scoreLi = document.createElement('li')
+      scoreLi.textContent = `${score.initials} ${score.score}`
+      highScoresUl.appendChild(scoreLi)
+    })
+    document.querySelector('.game-space').appendChild(highScoresUl)
   })
 
   if (timeLeft >= 0) {
     // user wins: their score is the remaining time
     // display top scores
+    
   } else {
     // user lost :sadface
   }
 }
 
-const displayHighScores = () => {
-  let scores = JSON.parse(localStorage.getItem('scores')).sort((a, b) => {
-    return b.score - a.score
-  })
-
-  console.log(scores)
+const getHighScores = () => {
+  return JSON.parse(localStorage.getItem('scores'))
 }
