@@ -48,10 +48,12 @@ const displayQuestion = question => {
     choiceList.appendChild(li)
     li.addEventListener('click', e => {
       console.log('this is  the click event')
-      if (e.target.matches('li') && e.target.dataset.correct === 'true') console.log('thats the correct answer!') // Don't decrement score/timer 
+      if (e.target.matches('li') && e.target.dataset.correct === 'true') {
+        console.log('thats the correct answer!') // Don't decrement score/timer 
+        round++
+      }
       else timeLeft -= 20 // Decrement score/timer
       // advance to next question
-      round++
       displayQuestion(randomQuestions[round])
     })
   })
