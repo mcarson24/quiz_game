@@ -29,6 +29,8 @@ const startTimer = () => {
 }
 
 const displayQuestion = question => {
+  // If we reach the end of the questions array, then the user has
+  // correctly answered all of the questions and they win!
   if (!question) {
     gameWin()
     return
