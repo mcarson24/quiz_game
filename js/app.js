@@ -11,7 +11,6 @@ const randomizeQuestionOrder = () => {
 }
 
 const randomQuestions = randomizeQuestionOrder()
-console.log(randomQuestions)
 
 startButton.addEventListener('click', e => {
   e.target.style = 'display: none;'
@@ -56,14 +55,13 @@ const displayQuestion = question => {
     li.addEventListener('click', e => {
       // We'll be nice and not let the user select the same incorrect answer after already selecting it once.
       if (e.target.className.includes('incorrect')) return
-
       if (e.target.matches('li') && randomQuestions[round].choices[i].correct) {
         // Advance to next question
         round++
         displayQuestion(randomQuestions[round])
       }
       else {
-        timeLeft -= 20 // Decrement score/timer
+        timeLeft -= 15 // Decrement score/timer
         e.target.classList.add('incorrect')
       }
     })
@@ -72,6 +70,7 @@ const displayQuestion = question => {
   gameSpace.appendChild(questionContainer)
 }
 
+// Logic to handle if the user lost.
 const gameLoss = () => {
   clearInterval(countdown)
   timeLeft = 0
@@ -82,33 +81,33 @@ const gameLoss = () => {
   gameSpace.appendChild(losingMessage)
 }
 
+// Logic to handle if the user won.
 const gameWin = () => {
+  console.log('win')
   clearInterval(countdown)
   timer.textContent = timeLeft
-  const initialsForm = document.createElement('form')
-  initialsForm.setAttribute('id', 'initials-form')
-  const initialsInput = document.createElement('input')
-  initialsInput.setAttribute('placeholder', 'Enter your initials. 3 Characters, please')
-  initialsForm.appendChild(initialsInput)
-  gameSpace.innerHTML = ''
-  gameSpace.appendChild(initialsForm)
-
+ 
+  toggle('.winning-message')
+  toggle('.question')
+  toggle('#initials-form')
   document.addEventListener('submit' , e => {
     e.preventDefault()
-    if (initialsInput.value.trim().length !== 3) {
+    const input = document.querySelector('#initials-input').value.trim()
+    if (input.length !== 3) {
       const errorSpan = document.createElement('span')
       errorSpan.textContent = `Please enter three characters. ex: 'BCS'`
       errorSpan.className = 'error'
       gameSpace.appendChild(errorSpan)
       return
     }
+
     let scores = getHighScores()
     scores.push({
-      initials: initialsInput.value.toUpperCase(),
+      initials: input.toUpperCase(),
       score: timeLeft > 0 ? timeLeft : 0
     })
     localStorage.setItem('scores', JSON.stringify(scores))
-    document.querySelector('#highScores').classList.remove('hide')
+    toggle('#highScores')
     const highScoresTable = document.querySelector('#highScores > tbody')
 
     scores = scores.sort((a, b) => {
@@ -117,7 +116,7 @@ const gameWin = () => {
     
     scores.forEach(score => {
       const scoreRow = document.createElement('tr')
-      if (score.initials === initialsInput.value) scoreRow.classList.add('currentPlayer')
+      if (score.initials === input.toUpperCase()) scoreRow.classList.add('currentPlayer')
       const playerData = document.createElement('td')
       playerData.textContent = score.initials
       const scoreData = document.createElement('td')
@@ -132,4 +131,9 @@ const gameWin = () => {
 
 const getHighScores = () => {
   return JSON.parse(localStorage.getItem('scores')) || []
+}
+
+const toggle = selector => {
+  const el = document.querySelector(selector)
+  Array.from(el.classList).includes('hidden') ? el.classList.remove('hidden') : el.classList.add('hidden')
 }

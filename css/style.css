@@ -1,12 +1,24 @@
+:root {
+  --box-shadow: 5px 5px 5px rgba(55, 55, 55, .25);
+  --blue: rgb(3 105 161);
+  --dark-blue: rgb(12 74 110);
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(203 213 225);
 }
 
 header {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  background-color: var(--blue);
+  color: white;
+  padding: 25px 0;
+  margin-bottom: 25px;
 }
 
 header .title {
@@ -17,7 +29,7 @@ header .title {
   flex-grow: 1;
 }
 
-.hide {
+.hidden {
   display: none;
 }
 
@@ -30,30 +42,26 @@ main {
   flex-direction: column;
   justify-content: space-around;
   margin: 0 auto;
-  max-width: 1068px;
+  max-width: 95%;
 }
 
 #timer {
-  position: fixed;
-  top: 25px;
-  right: 50px;
   font-size: 64px;
 }
 
 #start-game {
-  background-color: blue;
+  background-color: var(--blue);
   color: white;
   font-size: 2rem;
   padding: 25px 25px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  width: 30%;
   margin: 0 auto;
 }
 
 #start-game:hover {
-  background-color: darkblue;
+  background-color: var(--dark-blue);
 }
 
 .choices {
@@ -63,23 +71,43 @@ main {
   list-style: none;
 }
 
+.question {
+  background-color: white;
+  padding: 25px;
+  box-shadow: var(--box-shadow);
+}
+
 .question h2 {
   text-align: center;
 }
 
 .question-choice {
   cursor: pointer;
-  padding: 10px 0
+  padding: 25px 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.question-choice:nth-child(odd) {
+  background-color: rgb(248 250 252);
 }
 
 li.question-choice.incorrect {
-  color: red;
-  text-decoration: line-through;
+  color: lightgray;
   font-weight: bold;
 }
 
+li.question-choice.incorrect:hover {
+  cursor: not-allowed;
+}
+
+.winning-message {
+  color: white;
+}
+
 #initials-form {
-  display: block;
+  /* display: block; */
   margin: 0 auto;
   width: 66%;
 }
@@ -92,16 +120,17 @@ li.question-choice.incorrect {
 #highscores {
   box-shadow: 3px 3px 3px rgba(15, 15, 15, .5);
   border-radius: 5px;
-  width: 50%;
+  width: 85%;
   margin: 0 auto;
 }
 
 td {
-  text-align: center
+  text-align: center;
 }
 
 tr {
   height: 50px;
+  background-color: white;
 }
 
 tr:nth-child(odd) {
@@ -114,6 +143,31 @@ th {
 
 tr.currentPlayer {
   font-weight: bold;
-  background-color: blue;
+  background-color: var(--blue);
   color:white;
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    position: relative;
+  }
+
+  main {
+    max-width: 85%;
+  }
+
+  #timer {
+    position: absolute;
+    top: 33%;
+    right: 25px;
+  }
+
+  #start-button {
+    width: 40%
+  }
+
+  #highScores {
+    width: 80%;
+    transition: all 500ms;
+  }
 }

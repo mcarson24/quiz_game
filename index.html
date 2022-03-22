@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game</title>
+    <title>Presidential Quiz</title>
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/style.css">
   </head>
@@ -19,16 +19,17 @@
     <main>
       <button id="start-game">Start Game</button>
       <div class="game-space">
-        <div class="question"></div>
+        <div class="question hidden"></div>
+        <h2 class="winning-message text-center hidden">You won! Enter your initials.</h2>
+        <form id="initials-form" class="hidden">
+          <input type="text" id="initials-input" placeholder="Enter your initials. 3 Characters, please">
+        </form>
       </div>
-      <table id="highScores" class="hide">
+      <table id="highScores" class="hidden">
         <tr>
             <th>Player</th>
             <th>Score</th>
         </tr>
-        <tbody>
-
-        </tbody>
       </table>
     </main>
     <script src="./js/questions.js"></script>
