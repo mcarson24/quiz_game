@@ -61,16 +61,24 @@ const gameOver = () => {
   clearInterval(countdown)
   const initialsForm = document.createElement('form')
   const initialsInput = document.createElement('input')
-  initialsInput.setAttribute('placeholder', 'What are your initials?')
+  initialsInput.setAttribute('placeholder', 'Enter your initials. 3 Characters, please')
   initialsForm.appendChild(initialsInput)
   document.querySelector('.game-space').innerHTML = ''
   document.querySelector('.game-space').appendChild(initialsForm)
 
   document.addEventListener('submit' , e => {
     e.preventDefault()
+    if (initialsInput.value.trim().length !== 3) {
+      console.log('error handling')
+      const errorSpan = document.createElement('span')
+      errorSpan.textContent = `Please enter three characters. ex: 'BCS'`
+      errorSpan.className = 'error'
+      document.querySelector('.game-space').appendChild(errorSpan)
+      return
+    }
     let scores = getHighScores()
     scores.push({
-      initials: initialsInput.value,
+      initials: initialsInput.value.toUpperCase(),
       score: timeLeft > 0 ? timeLeft + 1 : 0
     })
     localStorage.setItem('scores', JSON.stringify(scores))
@@ -91,5 +99,5 @@ const gameOver = () => {
 }
 
 const getHighScores = () => {
-  return JSON.parse(localStorage.getItem('scores'))
+  return JSON.parse(localStorage.getItem('scores')) || []
 }
