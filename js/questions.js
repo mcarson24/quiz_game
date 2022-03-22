@@ -1,91 +1,109 @@
 const questions = [
   {
-    "text": "What is the answer to question one?",
+    "text": "Who was the first president to lose re-election?",
     "choices": [
       {
-        "text": "This is the wrong choice"
+        "text": "Thomas Jefferson"
       },
       {
-        "text": "This is the wrong choice"
+        "text": "George Washington"
       },
       {
-        "text": "This is the correct choice",
+        "text": "John Adams",
         "correct": true
       },
       {
-        "text": "This is the wrong choice"
+        "text": "James Madison"
       }
     ]
   },
   {
-    "text": "What is the answer to to question two?",
+    "text": "How many votes did George Washington recieve in his re-election?",
     "choices": [
       {
-        "text": "This is the wrong choice"
+        "text": "102,982"
       },
       {
-        "text": "This is the wrong choice"
-      },
-      {
-        "text": "This is the correct choice",
+        "text": "28,300",
         "correct": true
       },
       {
-        "text": "This is the wrong choice"
+        "text": "3,220,291"
+      },
+      {
+        "text": "91,222"
       }
     ]
   },
   {
-    "text": "What is the answer to question three?",
+    "text": "Out of the first twelve presidents, how many were slave owners?",
     "choices": [
       {
-        "text": "This is the wrong choice"
+        "text": "0"
       },
       {
-        "text": "This is the wrong choice"
+        "text": "4"
       },
       {
-        "text": "This is the correct choice",
+        "text": "10",
         "correct": true
       },
       {
-        "text": "This is the wrong choice"
+        "text": "3"
       }
     ]
   },
   {
-    "text": "What is the answer to question four?",
+    "text": "Which future president was the first U.S. Secretary of State?",
     "choices": [
       {
-        "text": "This is the wrong choice"
+        "text": "George Washington"
       },
       {
-        "text": "This is the wrong choice"
+        "text": "James Monroe"
       },
       {
-        "text": "This is the correct choice",
+        "text": "Thomas Jefferson",
         "correct": true
       },
       {
-        "text": "This is the wrong choice"
+        "text": "John Quincy Adams"
       }
     ]
   },
   {
-    "text": "What is the answer to question five?",
+    "text": "How long did William Henry Harrison serve as the eight President of the United States?",
     "choices": [
       {
-        "text": "This is the wrong choice"
+        "text": "8 months"
       },
       {
-        "text": "This is the wrong choice"
+        "text": "12 years"
       },
       {
-        "text": "This is the correct choice",
+        "text": "2 years"
+      },
+      {
+        "text": "31 days",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "text": "Who was the first President to appear on a U.S. coin?",
+    "choices": [
+      {
+        "text": "George Washington"
+      },
+      {
+        "text": "Abraham Lincoln",
         "correct": true
       },
       {
-        "text": "This is the wrong choice"
+        "text": "Andrew Jackson"
+      },
+      {
+        "text": "Thomas Jefferson"
       }
     ]
   }
