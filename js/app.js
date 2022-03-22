@@ -39,15 +39,13 @@ const displayQuestion = question => {
   questionContainer.appendChild(questionHeader)
   // Display the choices
   const choiceList = document.createElement('ul')
-  question.choices.forEach(choice => {
+  question.choices.forEach((choice, i) => {
     const li = document.createElement('li')
     li.className = 'question-choice'
     li.textContent = choice.text
-    li.setAttribute('data-correct', choice.correct || false)
     choiceList.appendChild(li)
     li.addEventListener('click', e => {
-      console.log('this is  the click event')
-      if (e.target.matches('li') && e.target.dataset.correct === 'true') {
+      if (e.target.matches('li') && randomQuestions[round].choices[i].correct) {
         // Advance to next question
         round++
       }
