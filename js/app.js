@@ -2,6 +2,8 @@ let timeLeft = 60
 let round = 0
 let countdown
 
+const gameSpace = document.querySelector('.game-space')
+
 const randomizeQuestionOrder = () => {
   return questions.sort(() => Math.random() - .5)
 }
@@ -54,16 +56,16 @@ const displayQuestion = question => {
     })
   })
   questionContainer.appendChild(choiceList)
-  document.querySelector('.game-space').appendChild(questionContainer)
+  gameSpace.appendChild(questionContainer)
 }
 
 const gameLoss = () => {
   clearInterval(countdown)
   timeLeft = 0
-  document.querySelector('.game-space').innerHTML = ''
+  gameSpace.innerHTML = ''
   const losingMessage = document.createElement('h2')
   losingMessage.textContent = 'Sorry, better luck next time!'
-  document.querySelector('.game-space').appendChild(losingMessage)
+  gameSpace.appendChild(losingMessage)
 }
 
 const gameWin = () => {
@@ -72,8 +74,8 @@ const gameWin = () => {
   const initialsInput = document.createElement('input')
   initialsInput.setAttribute('placeholder', 'Enter your initials. 3 Characters, please')
   initialsForm.appendChild(initialsInput)
-  document.querySelector('.game-space').innerHTML = ''
-  document.querySelector('.game-space').appendChild(initialsForm)
+  gameSpace.innerHTML = ''
+  gameSpace.appendChild(initialsForm)
 
   document.addEventListener('submit' , e => {
     e.preventDefault()
@@ -81,7 +83,7 @@ const gameWin = () => {
       const errorSpan = document.createElement('span')
       errorSpan.textContent = `Please enter three characters. ex: 'BCS'`
       errorSpan.className = 'error'
-      document.querySelector('.game-space').appendChild(errorSpan)
+      gameSpace.appendChild(errorSpan)
       return
     }
     let scores = getHighScores()
@@ -101,8 +103,8 @@ const gameWin = () => {
       scoreLi.textContent = `${score.initials} ${score.score}`
       highScoresUl.appendChild(scoreLi)
     })
-    document.querySelector('.game-space').innerHTML = ''
-    document.querySelector('.game-space').appendChild(highScoresUl)
+    gameSpace.innerHTML = ''
+    gameSpace.appendChild(highScoresUl)
   })
 }
 
