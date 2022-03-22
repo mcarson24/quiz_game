@@ -1,3 +1,7 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
   display: flex;
   justify-content: space-around;
@@ -17,7 +21,9 @@ header .title {
   display: none;
 }
 
-
+.text-center {
+  text-align: center;
+}
 
 main {
   display: flex;
@@ -35,12 +41,19 @@ main {
 }
 
 #start-game {
+  background-color: blue;
+  color: white;
+  font-size: 2rem;
+  padding: 25px 25px;
+  border-radius: 5px;
+  border: none;
   cursor: pointer;
   width: 30%;
   margin: 0 auto;
 }
 
-.game-space {
+#start-game:hover {
+  background-color: darkblue;
 }
 
 .choices {
@@ -59,7 +72,7 @@ main {
   padding: 10px 0
 }
 
-li.question-choice.wrong {
+li.question-choice.incorrect {
   color: red;
   text-decoration: line-through;
   font-weight: bold;
@@ -67,7 +80,6 @@ li.question-choice.wrong {
 
 #initials-form {
   display: block;
-  /* text-align: center; */
   margin: 0 auto;
   width: 66%;
 }
@@ -79,8 +91,7 @@ li.question-choice.wrong {
 
 #highscores {
   box-shadow: 3px 3px 3px rgba(15, 15, 15, .5);
-  list-style: none;
-  padding-left: 0px;
+  border-radius: 5px;
   width: 50%;
   margin: 0 auto;
 }
@@ -99,4 +110,10 @@ tr:nth-child(odd) {
 
 th {
   background-color: lightgray;
+}
+
+tr.currentPlayer {
+  font-weight: bold;
+  background-color: blue;
+  color:white;
 }

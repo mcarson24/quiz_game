@@ -4,6 +4,7 @@ let countdown
 
 const gameSpace = document.querySelector('.game-space')
 const startButton = document.querySelector('#start-game')
+const timer = document.querySelector('#timer')
 
 const randomizeQuestionOrder = () => {
   return questions.sort(() => Math.random() - .5)
@@ -20,10 +21,10 @@ startButton.addEventListener('click', e => {
 
 const startTimer = () => {
   countdown = setInterval(() => {
-    document.querySelector('#timer').textContent = timeLeft
+    timer.textContent = timeLeft
     if (timeLeft <= 0) {
       gameLoss()
-      document.querySelector('#timer').textContent = 0
+      timer.textContent = 0
     } else {
       timeLeft--
     }
@@ -53,8 +54,8 @@ const displayQuestion = question => {
     li.setAttribute('data-index', i)
     choiceList.appendChild(li)
     li.addEventListener('click', e => {
-      // We'll be nice and not let the user select the same wrong answer after already selecting it once.
-      if (e.target.className.includes('wrong')) return
+      // We'll be nice and not let the user select the same incorrect answer after already selecting it once.
+      if (e.target.className.includes('incorrect')) return
 
       if (e.target.matches('li') && randomQuestions[round].choices[i].correct) {
         // Advance to next question
@@ -63,9 +64,7 @@ const displayQuestion = question => {
       }
       else {
         timeLeft -= 20 // Decrement score/timer
-        const thing = document.querySelector(`[data-index="${i}"]`)
-        thing.classList.add('wrong')
-        choiceList.children[i] = thing
+        e.target.classList.add('incorrect')
       }
     })
   })
@@ -79,11 +78,13 @@ const gameLoss = () => {
   gameSpace.innerHTML = ''
   const losingMessage = document.createElement('h2')
   losingMessage.textContent = 'Sorry, better luck next time!'
+  losingMessage.classList.add('text-center')
   gameSpace.appendChild(losingMessage)
 }
 
 const gameWin = () => {
   clearInterval(countdown)
+  timer.textContent = timeLeft
   const initialsForm = document.createElement('form')
   initialsForm.setAttribute('id', 'initials-form')
   const initialsInput = document.createElement('input')
@@ -116,6 +117,7 @@ const gameWin = () => {
     
     scores.forEach(score => {
       const scoreRow = document.createElement('tr')
+      if (score.initials === initialsInput.value) scoreRow.classList.add('currentPlayer')
       const playerData = document.createElement('td')
       playerData.textContent = score.initials
       const scoreData = document.createElement('td')
