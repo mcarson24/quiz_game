@@ -18,7 +18,7 @@ const startTimer = () => {
   countdown = setInterval(() => {
     document.querySelector('#timer').textContent = timeLeft
     if (timeLeft <= 0) {
-      gameOver()
+      gameLoss()
       document.querySelector('#timer').textContent = 0
     } else {
       timeLeft--
@@ -28,7 +28,7 @@ const startTimer = () => {
 
 const displayQuestion = question => {
   if (!question) {
-    gameOver()
+    gameWin()
     return
   }
   const questionContainer = document.querySelector('.question')
@@ -57,7 +57,16 @@ const displayQuestion = question => {
   document.querySelector('.game-space').appendChild(questionContainer)
 }
 
-const gameOver = () => {
+const gameLoss = () => {
+  clearInterval(countdown)
+  timeLeft = 0
+  document.querySelector('.game-space').innerHTML = ''
+  const losingMessage = document.createElement('h2')
+  losingMessage.textContent = 'Sorry, better luck next time!'
+  document.querySelector('.game-space').appendChild(losingMessage)
+}
+
+const gameWin = () => {
   clearInterval(countdown)
   const initialsForm = document.createElement('form')
   const initialsInput = document.createElement('input')
@@ -69,7 +78,6 @@ const gameOver = () => {
   document.addEventListener('submit' , e => {
     e.preventDefault()
     if (initialsInput.value.trim().length !== 3) {
-      console.log('error handling')
       const errorSpan = document.createElement('span')
       errorSpan.textContent = `Please enter three characters. ex: 'BCS'`
       errorSpan.className = 'error'
