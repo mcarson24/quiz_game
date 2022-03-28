@@ -72,7 +72,7 @@ const questions = [
     ]
   },
   {
-    "text": "How long did William Henry Harrison serve as the eight President of the United States?",
+    "text": "How long did William Henry Harrison serve as the eighth President of the United States?",
     "choices": [
       {
         "text": "8 months"
